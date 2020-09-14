@@ -1,0 +1,28 @@
+{
+    "name": "mykola_chrome_extension/chrome-extension",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mykola",
+            "email": "mathematic204chnu@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "7.3.*",
+        "laravel": ">=7"
+    },
+    "autoload": {
+        "psr-4": {
+            "ChromeExtension\\": "src"
+        }
+    },
+    "description": "Витяг інформації по домену",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\ChromeExtension\\ChromeExtensionProvider"
+            ]
+        }
+    }
+}
