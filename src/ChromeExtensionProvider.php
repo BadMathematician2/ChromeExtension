@@ -23,9 +23,8 @@ class ChromeExtensionProvider extends ServiceProvider
 
     private function routeRegister()
     {
-        Route::prefix('extension')
+        Route::prefix('api')
             ->namespace('ChromeExtension\Controllers')
-            ->middleware(['web'])
             ->group(__DIR__ . ('/route.php'));
 
     }

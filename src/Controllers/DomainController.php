@@ -14,25 +14,39 @@ use Illuminate\Http\Request;
  */
 class DomainController extends Controller
 {
+
+    const STATUS = [
+        0 => 'Invalid domain',
+        1=> 'Invalid columns',
+        2=> 'Domain not found',
+
+    ];
+
     /**
      * @param Request $request
      * @return false|string
      */
     public function index(Request $request)
     {
+
+        $domain = $request->get('domain');
+
+        if (null === $domain) {
+            return self::STATUS[0];
+        }
+
         try {
-            $columns = $request->get('columns');
-            $domain = $request->get('domain');
-            $model = Domain::query()->where('domain', $domain)->get()[0];
-            $result = [];
-            foreach ($columns as $column) {
-                $result[$column] = $model->getAttribute($column);
+            $model = Domain::query()
+                ->select($request->get('columns', ['*']))
+                ->where('domain', $domain)->first();
+            if (null === $model) {
+                return self::STATUS[2];
             }
 
-            return json_encode($result);
-        } catch (\Exception $exception) {
+            return $model;
 
-            return 'There is not object with such domain in DB';
+        } catch (\Exception $exception) {
+            return self::STATUS[1];
         }
     }
 
