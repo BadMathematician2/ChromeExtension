@@ -5,6 +5,9 @@ namespace ChromeExtension\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\Packages\ChromeExtension\src\Exceptions\DomainNorFoundException;
+use App\Packages\ChromeExtension\src\Exceptions\InvalidColumnsException;
+use App\Packages\ChromeExtension\src\Exceptions\InvalidDomainException;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
 use Illuminate\Http\Request;
@@ -23,62 +26,72 @@ class DomainController extends Controller
     ];
 
     /**
-     * @param Request $request
-     * @param DomainSelectOptions $domainSelect
-     * @return array|string
+     * @var Request
      */
-    public function index(Request $request, DomainSelectOptions $domainSelect)
+    private $request;
+
+    /**
+     * @var DomainSelectOptions
+     */
+    private $selectHelper;
+
+    /**
+     * DomainController constructor.
+     * @param Request $request
+     * @param DomainSelectOptions $selectHelper
+     */
+    public function __construct(Request $request, DomainSelectOptions $selectHelper)
     {
-        $domain = $request->get('domain');
+        $this->request = $request;
+        $this->selectHelper = $selectHelper;
+    }
+
+    /**
+     * @return array|string
+     * @throws InvalidDomainException
+     */
+    public function index()
+    {
+
+        $domain = $this->request->get('domain');
 
         if (null === $domain) {
-            return self::STATUS[0];
+            throw new InvalidDomainException('Invalid domain');
         }
 
         try {
             $model = Domain::query()
-                ->select($request->get('columns', ['*']))
-                ->where('domain', $domain)->first()->toArray();
-
+                ->select($this->request->get('columns', ['*']))
+                ->where('domain', $domain)->first();
 
             if (null === $model) {
-                return self::STATUS[2];
+                throw new DomainNorFoundException('Sorry, your domain not found');
             }
 
-            foreach ($domainSelect->getOption('columns') as $column) {
+            foreach ($this->selectHelper->getOption('columns') as $column) {
                 if (isset($model[$column])) {
-                    $model[$column] = $domainSelect->getOption($column)[$model[$column]];
+                    $model[$column] = $this->selectHelper->getOption($column)[$model[$column]];
                 }
             }
 
-            if (isset($model['manager'])) {
-                $model['manager'] = $this->getManagerInfo($model['manager'], $request->get('manager'));
+            if (isset($model['manager_id'])) {
+                $model->setManagerModel($this->request->get('manager'));
+                $model['manager'] = $model->getManagerInfo();
             }
+
             return $model;
 
         } catch (\Exception $exception) {
-            return self::STATUS[1];
+            throw new InvalidColumnsException('Invalid columns');
         }
     }
 
     /**
-     * @param Request $request
-     * @param DomainSelectOptions $domainSelect
      * @return array
      */
-    public function options(Request $request, DomainSelectOptions $domainSelect)
+    public function options()
     {
-        return $domainSelect->getOption($request->get('options'));
-    }
-
-    /**
-     * @param string $manager_id
-     * @param string $model_name
-     * @return mixed
-     */
-    private function getManagerInfo(string $manager_id, string $model_name)
-    {
-        return $model_name::query()->select(['name', 'id', 'avatar'])->find($manager_id);
+        return $this->selectHelper->getOption($this->request->get('options'));
     }
 
 }
