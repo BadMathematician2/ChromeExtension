@@ -40,15 +40,20 @@ class DomainController extends Controller
                 ->select($request->get('columns', ['*']))
                 ->where('domain', $domain)->first()->toArray();
 
+
             if (null === $model) {
                 return self::STATUS[2];
             }
 
             foreach ($domainSelect->getOption('columns') as $column) {
-                $model[$column] = $domainSelect->getOption($column)[$model[$column]];
+                if (isset($model[$column])) {
+                    $model[$column] = $domainSelect->getOption($column)[$model[$column]];
+                }
             }
-            $model['manager'] = $this->getManagerInfo($model['manager_id'], $request->get('manager'));
 
+            if (isset($model['manager'])) {
+                $model['manager'] = $this->getManagerInfo($model['manager_id'], $request->get('manager'));
+            }
             return $model;
 
         } catch (\Exception $exception) {
