@@ -52,7 +52,7 @@ class DomainController extends Controller
             }
 
             if (isset($model['manager'])) {
-                $model['manager'] = $this->getManagerInfo($model['manager_id'], $request->get('manager'));
+                $model['manager'] = $this->getManagerInfo($model['manager'], $request->get('manager'));
             }
             return $model;
 
