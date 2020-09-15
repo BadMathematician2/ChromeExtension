@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
  */
 class DomainController extends Controller
 {
-
     const STATUS = [
         0 => 'Invalid domain',
         1 => 'Invalid columns',
@@ -57,6 +56,11 @@ class DomainController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param DomainSelectOptions $domainSelect
+     * @return array
+     */
     public function options(Request $request, DomainSelectOptions $domainSelect)
     {
         return $domainSelect->getOption($request->get('options'));
