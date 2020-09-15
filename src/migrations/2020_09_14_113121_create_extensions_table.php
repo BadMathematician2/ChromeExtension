@@ -18,12 +18,12 @@ class CreateExtensionsTable extends Migration
 
             $table->string('domain');
             $table->unique('domain');
-            $table->boolean('domain_tematic');
+            $table->boolean('domain_thematic');
             $table->integer('status');
             $table->string('type');
-            $table->boolean('price');
+            $table->integer('price');
             $table->string('url');
-            $table->boolean('tematic');
+            $table->boolean('thematic');
             $table->string('link');
 
             $table->timestamps();

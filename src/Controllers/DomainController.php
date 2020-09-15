@@ -28,7 +28,6 @@ class DomainController extends Controller
      */
     public function index(Request $request)
     {
-
         $domain = $request->get('domain');
 
         if (null === $domain) {
@@ -49,6 +48,5 @@ class DomainController extends Controller
             return self::STATUS[1];
         }
     }
-
 
 }
