@@ -18,11 +18,11 @@ use Illuminate\Http\Request;
  */
 class DomainController extends Controller
 {
-    const STATUS = [
-        0 => 'Invalid domain',
-        1 => 'Invalid columns',
-        2 => 'Domain not found',
 
+    const STATUS = [
+        'ID' => 'This domain is invalid',
+        'IC' => 'These columns are invalid',
+        'DNF' => 'Domain not found',
     ];
 
     /**
@@ -48,7 +48,6 @@ class DomainController extends Controller
 
     /**
      * @return array|string
-     * @throws InvalidDomainException
      */
     public function index()
     {
@@ -56,7 +55,7 @@ class DomainController extends Controller
         $domain = $this->request->get('domain');
 
         if (null === $domain) {
-            throw new InvalidDomainException('Invalid domain');
+            return static::STATUS['ID'];
         }
 
         try {
@@ -65,7 +64,7 @@ class DomainController extends Controller
                 ->where('domain', $domain)->first();
 
             if (null === $model) {
-                throw new DomainNorFoundException('Sorry, your domain not found');
+                return static::STATUS['DNF'];
             }
 
             foreach ($this->selectHelper->getOption('columns') as $column) {
@@ -82,15 +81,19 @@ class DomainController extends Controller
             return $model;
 
         } catch (\Exception $exception) {
-            throw new InvalidColumnsException('Invalid columns');
+            return static::STATUS['IC'];
         }
     }
 
     /**
-     * @return array
+     * @return array|string
      */
     public function options()
     {
+        if (null === $this->request->get('options')) {
+            return 'You did not send options';
+        }
+
         return $this->selectHelper->getOption($this->request->get('options'));
     }
 

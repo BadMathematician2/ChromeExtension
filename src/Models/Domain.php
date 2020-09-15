@@ -40,7 +40,7 @@ class Domain extends Model
      */
     public function getManagerInfo()
     {
-        return self::getManagerModel()::query()->select(['id', 'name', 'avatar'])->find($this->getAttribute('manager_id'));
+        return static::getManagerModel()::query()->select(['id', 'name', 'avatar'])->find($this->getAttribute('manager_id'));
     }
 
 
