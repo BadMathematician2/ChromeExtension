@@ -57,6 +57,11 @@ class DomainController extends Controller
         }
     }
 
+    public function options(Request $request, DomainSelectOptions $domainSelect)
+    {
+        return $domainSelect->getOption($request->get('options'));
+    }
+
     /**
      * @param string $manager_id
      * @param string $model_name
