@@ -8,9 +8,6 @@
             "email": "mathematic204chnu@gmail.com"
         }
     ],
-    "require": {
-        "php": "7.4.*"
-    },
     "autoload": {
         "psr-4": {
             "ChromeExtension\\": "src"
