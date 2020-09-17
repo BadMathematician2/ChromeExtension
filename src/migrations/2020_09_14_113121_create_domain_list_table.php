@@ -40,7 +40,7 @@ class CreateDomainListTable extends Migration
             $table->text('auth')->nullable();
             $table->string('auth_link')->nullable();
             $table->text('comment')->nullable();
-            $table->integer('manager')->nullable();
+            $table->integer('manager_id')->nullable();
 
             $table->timestamps();
         });
