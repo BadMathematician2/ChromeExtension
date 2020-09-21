@@ -18,7 +18,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if (null === \Sentinel::findByPersistenceCode($request->get('token'))) {
+        if (null === \Sentinel::getUserRepository()->findByPersistenceCode($request->get('token'))) {
             abort(403);
         }
 

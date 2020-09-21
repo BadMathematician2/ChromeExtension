@@ -1,5 +1,7 @@
 <?php
 
-Route::get('domain', 'DomainController@index')->middleware('authenticate');
+use ChromeExtension\Middleware\Authenticate;
 
-Route::get('options', 'DomainController@options')->middleware('authenticate');
+Route::middleware(Authenticate::class)->get('domain', 'DomainController@index');
+
+Route::get('options', 'DomainController@options');

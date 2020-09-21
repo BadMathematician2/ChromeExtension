@@ -4,8 +4,6 @@
 namespace ChromeExtension;
 
 
-use ChromeExtension\Middleware\Authenticate;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,8 +18,6 @@ class ChromeExtensionProvider extends ServiceProvider
     {
         $this->routeRegister();
         $this->migrationsRegister();
-        $this->publish();
-        $this->middlewerRegister();
     }
 
     private function routeRegister()
@@ -37,17 +33,5 @@ class ChromeExtensionProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
     }
 
-    public function publish()
-    {
-        $this->publishes([
-            __DIR__ . '/public' => public_path('vendor/mykola-map'),
-        ], 'domain');
-    }
-
-    private function middlewerRegister()
-    {
-        $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('authenticate', Authenticate::class);
-    }
 
 }
