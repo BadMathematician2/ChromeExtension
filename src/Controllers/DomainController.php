@@ -71,7 +71,7 @@ class DomainController extends Controller
                 }
             }
 
-            if (isset($model['manager_id'])) {
+            if (isset($model['manager_id']) && null !== $this->request->get('manager')) {
                 $model->setManagerModel($this->request->get('manager'));
                 $model['manager'] = $model->getManagerInfo();
             }
