@@ -14,7 +14,7 @@
         }
     },
     "require": {
-        "require cartalyst/sentinel": "^4.0"
+        "cartalyst/sentinel": "^4.0"
     },
     "description": "Take information by domain",
     "extra": {
