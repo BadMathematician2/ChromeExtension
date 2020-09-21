@@ -5,6 +5,10 @@ namespace ChromeExtension\Middleware;
 
 use Closure;
 
+/**
+ * Class Authenticate
+ * @package ChromeExtension\Middleware
+ */
 class Authenticate
 {
     /**
