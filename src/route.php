@@ -1,5 +1,5 @@
 <?php
 
-Route::get('domain', 'DomainController@index');
+Route::get('domain', 'DomainController@index')->middleware('authenticate');
 
-Route::get('options', 'DomainController@options');
+Route::get('options', 'DomainController@options')->middleware('authenticate');

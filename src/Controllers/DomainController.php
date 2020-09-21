@@ -5,6 +5,7 @@ namespace ChromeExtension\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Cartalyst\Sentinel\Sentinel;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
 use Illuminate\Http\Request;
