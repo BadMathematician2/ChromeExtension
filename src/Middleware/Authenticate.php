@@ -4,6 +4,7 @@
 namespace ChromeExtension\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 /**
  * Class Authenticate
@@ -12,19 +13,26 @@ use Closure;
 class Authenticate
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if (null === $request->get('token')) {
-            abort(403);
-        }
-        if (null === \Sentinel::getUserRepository()->findByPersistenceCode($request->get('token'))) {
+        if ($this->checkPersistenceCode($request)) {
             abort(403);
         }
 
         return $next($request);
     }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    private function checkPersistenceCode(Request $request)
+    {
+        return null === \Sentinel::getUserRepository()->findByPersistenceCode($request->get('token', 'default'));
+    }
+
 }
