@@ -107,3 +107,6 @@ const closeModalOutside = (e) => {
     }
 }
 
+
+
+
