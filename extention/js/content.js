@@ -6,7 +6,6 @@ $.ajaxSetup({
 });
 
 
-
 const toolBar = new WtgToolBar(),
     eventManager = new EventManager(),
     dataManager = new DataManager(),

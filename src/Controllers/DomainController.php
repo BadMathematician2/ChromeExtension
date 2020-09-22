@@ -3,9 +3,7 @@
 
 namespace ChromeExtension\Controllers;
 
-
 use App\Http\Controllers\Controller;
-use Cartalyst\Sentinel\Sentinel;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
 use Illuminate\Http\Request;
@@ -16,7 +14,6 @@ use Illuminate\Http\Request;
  */
 class DomainController extends Controller
 {
-
     const STATUS = [
         'ID' => 'This domain is invalid',
         'IC' => 'These columns are invalid',

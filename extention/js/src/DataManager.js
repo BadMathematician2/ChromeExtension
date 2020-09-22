@@ -4,9 +4,7 @@ class DataManager {
         this.chromeStorage = new ChromeStorage()
     }
 
-
-    authToolbar()
-    {
+    authToolbar() {
 
         let wtgContent = $('#wtg_ext_auth_token').val()
         if (undefined !== wtgContent){
@@ -22,17 +20,17 @@ class DataManager {
 
     dataSender() {
 
-        this.chromeStorage.getChromeStorage('status', result => {
-            if ("autorisated" === result.status){
+        this.chromeStorage.getChromeStorage('session', result => {
+            if (null !== result.session) {
                 console.log(result)
                 this.getData(
                     "https://test.extention/api/domain",
                     {
                         domain: window.location.href,
-                        token: result,
+                        token: result.session,
                         manager: 'App\\Models\\Manager'
                     },
-                    (data) =>  {
+                    (data) => {
                         console.log(data);
                         this.js_status(data.status);
                         this.js_type(data.type);
@@ -48,7 +46,7 @@ class DataManager {
 
     }
 
-    getData(url, data, onSuccess, type = "GET")  {
+    getData(url, data, onSuccess, type = "GET") {
         $.ajax({
             type:type,
             url: url,
@@ -58,7 +56,7 @@ class DataManager {
     }
 
 
-    js_status(status){
+    js_status(status) {
         switch (status) {
             case 'url is not in DB' :
                 $('#js_status_1, #js_status_2').addClass( "bg-green" )
@@ -80,7 +78,7 @@ class DataManager {
         $('#js_link_type').text(link_type);
     }
 
-    js_referring_domains(referring_domains){
+    js_referring_domains(referring_domains) {
         $('#js_referring_domains').text(referring_domains);
     }
 
@@ -101,8 +99,8 @@ class DataManager {
 
     }
 
-    js_avatar(avatar){
-        $("#js_avatar").attr("src", "chrome-extension://"+chrome.runtime.id+"/images/"+avatar);
+    js_avatar(avatar) {
+        $("#js_avatar_1, #js_avatar_2").attr("src", "chrome-extension://"+chrome.runtime.id+"/frontend/img/"+avatar);
     }
 
 }
