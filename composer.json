@@ -13,6 +13,9 @@
             "ChromeExtension\\": "src"
         }
     },
+    "require": {
+        "cartalyst/sentinel": "^4.0"
+    },
     "description": "Take information about domain",
     "extra": {
         "laravel": {
