@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 
 /**
- * Class ExtentionController
+ * Class ExtensionController
  * @package ChromeExtension\Controllers
  */
-class ExtentionController extends Controller
+class ExtensionController extends Controller
 {
 
     /**
@@ -19,7 +19,7 @@ class ExtentionController extends Controller
     public $request;
 
     /**
-     * ExtentionController constructor.
+     * ExtensionController constructor.
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -30,7 +30,6 @@ class ExtentionController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
-
     public function authenticate()
     {
         \Sentinel::Authenticate([
@@ -50,7 +49,6 @@ class ExtentionController extends Controller
     /**
      * @return bool|\Cartalyst\Sentinel\Users\UserInterface
      */
-
     public function register()
     {
         return \Sentinel::register([
@@ -62,22 +60,10 @@ class ExtentionController extends Controller
     /**
      * @return bool
      */
-
     public function logout()
     {
         return \Sentinel::logout();
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
 

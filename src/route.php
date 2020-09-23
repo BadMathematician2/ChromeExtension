@@ -7,8 +7,9 @@ Route::middleware(Authenticate::class)->get('domain', 'DomainController@index');
 Route::middleware(Authenticate::class)->get('options', 'DomainController@options');
 
 
-Route::post('authenticate', 'ExtentionController@authenticate')->name('ext-login');
+Route::post('authenticate', 'ExtensionController@authenticate')->name('ext-login');
 
-Route::post('register', 'ExtentionController@register');
+Route::post('register', 'ExtensionController@register');
 
-Route::post('logout', 'ExtentionController@logout');
+Route::post('logout', 'ExtensionController@logout');
+

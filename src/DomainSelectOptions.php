@@ -14,9 +14,9 @@ class DomainSelectOptions
     ];
 
     private $status = [
-        1 => 'url is not in DB',
-        2 => 'url is in DB',
-        3 => 'url is in DB, but site is under moderation ',
+        1 => 'URL_IS_NOT_IN_DB',
+        2 => 'URL_IS_IN_DB',
+        3 => 'URL_IS_IN_DB_BUT_SITE_IS_UNDER_MODERATION',
     ];
 
     private $type = [

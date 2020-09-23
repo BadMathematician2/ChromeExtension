@@ -18,13 +18,13 @@ class WtgToolBarContent{
 
     js_status(status) {
         switch (status) {
-            case 'url is not in DB' :
+            case 'URL_IS_NOT_IN_DB' :
                 $('#js_status_1, #js_status_2').addClass( "bg-green" )
                 break;
-            case 'url is in DB' :
+            case 'URL_IS_IN_DB' :
                 $('#js_status_1, #js_status_2').addClass( "bg-red" )
                 break;
-            case 'url is in DB, but site is under moderation' :
+            case 'URL_IS_IN_DB_BUT_SITE_IS_UNDER_MODERATION' :
                 $('#js_status_1, #js_status_2').addClass( "bg-yellow" )
                 break;
         }

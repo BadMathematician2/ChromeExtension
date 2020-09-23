@@ -15,9 +15,9 @@ use Illuminate\Http\Request;
 class DomainController extends Controller
 {
     const STATUS = [
-        'ID' => 'This domain is invalid',
-        'IC' => 'These columns are invalid',
-        'DNF' => 'Domain not found',
+        'ID' => 'THIS_DOMAIN_IS_INVALID',
+        'IC' => 'THESE_COLUMNS_ARE_INVALID',
+        'DNF' => 'DOMAIN_NOT_FOUND',
     ];
 
     /**
