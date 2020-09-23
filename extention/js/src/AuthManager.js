@@ -8,10 +8,11 @@ class AuthManager {
         });
     }
 
-    constructor(query) {
-        this.authUrl = "https://test.extention/api/authenticate"
-        this.regUrl = "https://test.extention/api/register"
-        this.logOutUrl = "https://test.extention/api/logout"
+    constructor(query, authUrl = "authenticate", regUrl = "logout", logOutUrl = "logout") {
+        const url = "https://test.extention/api/"
+        this.authUrl = url + authUrl
+        this.regUrl = url + regUrl
+        this.logOutUrl = url + logOutUrl
         this.chromeStorage = new ChromeStorage()
         this.toolbar = new WtgToolBar()
         this.query = query
@@ -43,12 +44,14 @@ class AuthManager {
             (response) =>  {
                 if("error" !== response) {
                     console.log(response)
-                    this.chromeStorage.setChromeStorage({session: response})
-                    this.chromeStorage.setChromeStorage({status: 'autorisated'})
-                    this.chromeStorage.setChromeStorage({email: this.query.email})
+                    this.chromeStorage.setChromeStorage({
+                        session: response,
+                        status: 'autorisated',
+                        email: this.query.email
+                    })
                     this.sendMessage('success','Вас авторизовано!')
-                    $('#iframe2').remove()
-                    this.toolbar.render_index()
+                    $('#wtg-toolbar-login').remove()
+                    this.toolbar.renderToolbar()
                 }
                 if ("error" === response) {
                     this.sendMessage('error','Не правильний email або пароль!')
@@ -79,11 +82,10 @@ class AuthManager {
             this.logOutUrl,
             {},
             () => {
-                this.chromeStorage.setChromeStorage({status: 'not autorisated'})
-                this.chromeStorage.setChromeStorage({session: null})
+                this.chromeStorage.setChromeStorage({status: 'not autorisated', session: null})
                 console.log('success logout')
-                $('#iframe1').remove()
-                this.toolbar.render_logout()
+                $('#wtg-toolbar-wrap').remove()
+                this.toolbar.renderLogOut()
             }
         )
     }

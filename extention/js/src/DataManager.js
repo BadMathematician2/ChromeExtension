@@ -6,12 +6,10 @@ class DataManager {
     }
 
     authToolbar() {
-        let wtgContent = $('#wtg_ext_auth_token').val()
-        if (undefined !== wtgContent){
-            let token = $('#wtg_ext_auth_token').val()
+        let token = $('#wtg_ext_auth_token').val()
+        if (undefined !== token){
             console.log(token)
-            this.chromeStorage.setChromeStorage({session: token})
-            this.chromeStorage.setChromeStorage({status: 'autorisated'})
+            this.chromeStorage.setChromeStorage({session: token, status: 'autorisated'})
         }
     }
 
@@ -32,7 +30,7 @@ class DataManager {
                     {
                         domain: window.location.href,
                         token: result.session,
-                        manager: 'App\\Models\\Manager'
+                        manager: 'ChromeExtension\\Models\\Manager'
                     },
                     (data) => {
                         this.wtgToolBarContent.SetContentToolbar(data)

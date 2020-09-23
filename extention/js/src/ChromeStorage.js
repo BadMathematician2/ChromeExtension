@@ -2,7 +2,7 @@
 class ChromeStorage {
 
     getChromeStorage (key, closure = () => null)  {
-        chrome.storage.sync.get([key], closure);
+        chrome.storage.sync.get(key, closure);
     }
 
     setChromeStorage(object, closure = () => null) {
