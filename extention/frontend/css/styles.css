@@ -302,7 +302,8 @@ body {
             box-shadow: 0 6px 16px rgba(85, 150, 238, 0.25);
     border-radius: 3px;
     border: none;
-    outline: none; }
+    outline: none;
+    text-decoration: none; }
     .wtg-toolbar__btn-login:focus {
       -webkit-box-shadow: none;
               box-shadow: none;
@@ -350,8 +351,11 @@ body {
     font-size: 16px;
     letter-spacing: 0.02em;
     color: #000000;
-    width: 50%;
-    margin: 0; }
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 0;
+    white-space: nowrap; }
   .wtg-toolbar-modal__user-signed {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -370,7 +374,10 @@ body {
     color: #909090;
     text-decoration: none;
     text-align: center;
-    width: 50%; }
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin: auto; }
     .wtg-toolbar-modal__user-signed:focus {
       outline: none; }
     .wtg-toolbar-modal__user-signed:hover {
