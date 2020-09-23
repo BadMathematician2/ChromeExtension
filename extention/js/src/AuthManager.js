@@ -42,6 +42,7 @@ class AuthManager {
             },
             (response) =>  {
                 if("error" !== response) {
+                    console.log(response)
                     this.chromeStorage.setChromeStorage({session: response})
                     this.chromeStorage.setChromeStorage({status: 'autorisated'})
                     this.chromeStorage.setChromeStorage({email: this.query.email})
@@ -79,6 +80,7 @@ class AuthManager {
             {},
             () => {
                 this.chromeStorage.setChromeStorage({status: 'not autorisated'})
+                this.chromeStorage.setChromeStorage({session: null})
                 console.log('success logout')
                 $('#iframe1').remove()
                 this.toolbar.render_logout()

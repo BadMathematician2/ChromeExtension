@@ -1,5 +1,5 @@
 {
-    "name": "wtg-package/chrome-extension",
+    "name": "mykola_chrome_extension/chrome-extension",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,10 +13,7 @@
             "ChromeExtension\\": "src"
         }
     },
-    "require": {
-        "cartalyst/sentinel": "^4.0"
-    },
-    "description": "Take information about domain",
+    "description": "Take information by domain",
     "extra": {
         "laravel": {
             "providers": [

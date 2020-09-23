@@ -52,7 +52,7 @@ body {
   background: #FFFFFF;
   -webkit-box-shadow: 0 4px 16px rgba(138, 138, 138, 0.15);
           box-shadow: 0 4px 16px rgba(138, 138, 138, 0.15);
-  z-index: 9999; }
+  z-index: 1002; }
   .wtg-toolbar__logo {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -266,16 +266,8 @@ body {
         -ms-flex-align: center;
             align-items: center;
     margin-left: auto;
-    padding: 0 50px;
-    position: fixed;
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 36px;
-    background: #FFFFFF; }
+    height: 100%;
+    padding: 0 50px; }
   .wtg-toolbar__login-title {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
@@ -324,7 +316,7 @@ body {
   -webkit-box-shadow: 0 4px 16px rgba(138, 138, 138, 0.25);
           box-shadow: 0 4px 16px rgba(138, 138, 138, 0.25);
   border-radius: 10px;
-  z-index: 9990;
+  z-index: 1000;
   opacity: 0;
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
