@@ -22,7 +22,7 @@ class WtgToolBar {
     renderIndex(url) {
         $(document).load(`${url}`, (response, status, xhr) => {
             if(status !== 'error') {
-                $('body').append(response);
+                $('body').append(response).css({paddingTop:40});
             } else {
                 console.log(`status ${xhr.statusText}`);
             }
