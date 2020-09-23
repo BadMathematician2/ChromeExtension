@@ -22,7 +22,8 @@ class WtgToolBar {
     renderIndex(url) {
         $(document).load(`${url}`, (response, status, xhr) => {
             if(status !== 'error') {
-                $('body').append(response).css({paddingTop:40});
+                $('body').append(response);
+                this.fixImagesUrl();
             } else {
                 console.log(`status ${xhr.statusText}`);
             }
@@ -50,107 +51,36 @@ class WtgToolBar {
             }
         })
     }
-    //
-    // render_index() {
-    //
-    //     var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
-    //
-    //     const getToolbarIndex = (extensionUrl, webDoc) => {
-    //         $.ajax({
-    //             type:"GET",
-    //             url: `${extensionUrl}/frontend/index.html`,
-    //             success: (res) => {
-    //                 let parser = new DOMParser(),
-    //                     doc = parser.parseFromString(res, "text/html"),
-    //                     toolbar = doc.querySelector('.js-wtg-toolbar'),
-    //                     toolbarModal = doc.querySelector('.js-wtg-toolbar-modal'),
-    //                     styles = document.createElement('link'),
-    //                     allImg = doc.querySelectorAll('img'),
-    //                     scripts = document.createElement('script');
-    //
-    //                 //Set styles and scripts
-    //                 styles.setAttribute('rel', 'stylesheet');
-    //                 styles.setAttribute('type', 'text/css');
-    //                 styles.setAttribute('href', `${extensionUrl}/frontend/css/styles.min.css`);
-    //                 scripts.setAttribute('src', `${extensionUrl}/frontend/js/script.min.js`);
-    //
-    //                 //Set image url
-    //                 allImg.forEach( el => {
-    //                     let src = el.getAttribute('src');
-    //
-    //                     switch (src.slice(0, 3)) {
-    //                         case 'img':
-    //                             src.replace('img',`${extensionUrl}/frontend/img`);
-    //                             el.setAttribute('src', `${extensionUrl}/frontend/${src}`);
-    //                         case 'svg':
-    //                             src.replace('img',`${extensionUrl}/frontend/svg`);
-    //                             el.setAttribute('src', `${extensionUrl}/frontend/${src}`);
-    //                     }
-    //
-    //                 });
-    //
-    //                 //insert styles
-    //                 webDoc.head.appendChild(styles);
-    //                 webDoc.body.appendChild(toolbar);
-    //                 webDoc.body.appendChild(toolbarModal);
-    //                 webDoc.body.appendChild(scripts);
-    //
-    //             }
-    //         });
-    //     }
-    //
-    //     getToolbarIndex(extensionOrigin, document);
-    //
-    // }
-    //
-    // render_logout() {
-    //
-    //     var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
-    //
-    //     const getToolbarIndex = (extensionUrl, webDoc) => {
-    //         $.ajax({
-    //             type:"GET",
-    //             url: `${extensionUrl}/frontend/logout.html`,
-    //             success: (res) => {
-    //                 let parser = new DOMParser(),
-    //                     doc = parser.parseFromString(res, "text/html"),
-    //                     toolbar = doc.querySelector('.js-wtg-toolbar'),
-    //                     styles = document.createElement('link'),
-    //                     allImg = doc.querySelectorAll('img'),
-    //                     scripts = document.createElement('script');
-    //
-    //                 //Set styles and scripts
-    //                 styles.setAttribute('rel', 'stylesheet');
-    //                 styles.setAttribute('type', 'text/css');
-    //                 styles.setAttribute('href', `${extensionUrl}/frontend/css/styles.min.css`);
-    //                 scripts.setAttribute('src', `${extensionUrl}/frontend/js/script.min.js`);
-    //
-    //                 //Set image url
-    //                 allImg.forEach( el => {
-    //                     let src = el.getAttribute('src');
-    //
-    //                     switch (src.slice(0, 3)) {
-    //                         case 'img':
-    //                             src.replace('img',`${extensionUrl}/frontend/img`);
-    //                             el.setAttribute('src', `${extensionUrl}/frontend/${src}`);
-    //                         case 'svg':
-    //                             src.replace('img',`${extensionUrl}/frontend/svg`);
-    //                             el.setAttribute('src', `${extensionUrl}/frontend/${src}`);
-    //                     }
-    //
-    //                 });
-    //
-    //                 //insert styles
-    //                 webDoc.head.appendChild(styles);
-    //                 webDoc.body.appendChild(toolbar);
-    //                 webDoc.body.appendChild(scripts);
-    //
-    //             }
-    //         });
-    //     }
-    //
-    //     getToolbarIndex(extensionOrigin, document);
-    //
-    // }
 
+    preloaderOn() {
+        $(document).load(`${this.urlToolbar}`, (status, xhr) => {
+            if(status !== 'error') {
+                $('.js-wtg-toolbar__option-block').addClass('preloader');
+            } else {
+                console.log(`status ${xhr.statusText}`);
+            }
+        });
+    }
+
+    preloaderOff() {
+        $(document).load(`${this.urlToolbar}`, (status, xhr) => {
+            if(status !== 'error') {
+                $('.js-wtg-toolbar__option-block').removeClass('preloader');
+            } else {
+                console.log(`status ${xhr.statusText}`);
+            }
+        });
+    }
+
+    fixImagesUrl() {
+
+        let images = [...$('.js-wtg-toolbar__images')];
+
+        images.forEach( el => {
+            let oldSrc = $(el).attr('src');
+
+            $(el).attr('src',`${this.urlExtension}/frontend/${oldSrc}`);
+        })
+
+    }
 }
