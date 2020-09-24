@@ -4,8 +4,10 @@
 namespace ChromeExtension\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Manager;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
@@ -30,6 +32,18 @@ class DomainController extends Controller
      */
     private $selectHelper;
 
+    /**
+     * @var Model
+     */
+    private $managerModel = Manager::class;
+
+    /**
+     * @param Model $managerModel
+     */
+    public function setManagerModel(Model $managerModel): void
+    {
+        $this->managerModel = $managerModel;
+    }
     /**
      * DomainController constructor.
      * @param Request $request
@@ -68,8 +82,8 @@ class DomainController extends Controller
                 }
             }
 
-            if (isset($model['manager_id']) && null !== $this->request->get('manager')) {
-                $model->setManagerModel($this->request->get('manager'));
+            if (isset($model['manager_id'])) {
+                $model->setManagerModel($this->managerModel);
                 $model['manager'] = $model->getManagerInfo();
             }
 
