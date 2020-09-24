@@ -5,7 +5,7 @@ namespace ChromeExtension\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 /**
  * Class Authenticate
@@ -17,11 +17,10 @@ class Authenticate
      * @param Request $request
      * @param Closure $next
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle(Request $request, Closure $next)
     {
-        if (! $this->checkToken($request)) {
+        if (! $this->checkToken($request['token'])) {
             abort(403);
         }
 
@@ -29,33 +28,20 @@ class Authenticate
     }
 
     /**
-     * @param Request $request
+     * @param string $token
      * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function checkToken(Request $request)
+    private function checkToken(string $token)
     {
-        $response = $this->getResponse($request->get('token', 'default'));
+        $response = $response = Http::withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->get(env('AUTH_ROUTE', 'https://') . $token);
 
-        $this->checkResponseStatus($response->getStatusCode());
+        $this->checkResponseStatus($response->status());
 
-        $result = json_decode((string)$response->getBody(), true);
+        $result = json_decode((string)$response->body(), true);
 
         return 200 === $result['status'];
-    }
-
-    /**
-     * @param string $token
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function getResponse(string $token)
-    {
-        $client = new Client();
-        $authRoute = env('AUTH_ROUTE', 'https://');
-
-        return $client->get($authRoute . $token)
-            ->withHeader('X-CSRF-TOKEN', csrf_token());
     }
 
     /**
