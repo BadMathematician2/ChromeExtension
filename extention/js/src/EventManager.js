@@ -6,7 +6,7 @@ class EventManager {
 
     }
     registerOnMsgListener() {
-        chrome.runtime.onMessage.addListener(function (query){
+        chrome.runtime.onMessage.addListener(function (query) {
             new AuthManager(query);
         })
     }

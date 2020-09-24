@@ -88,8 +88,7 @@ class AuthManager {
         )
     }
 
-
-    formRequest(url, data, onSuccess, type = "POST")  {
+    formRequest(url, data, onSuccess, type = "POST") {
         $.ajax({
             type:type,
             url: url,

@@ -47,8 +47,7 @@ class WtgToolBar {
             if("autorisated" === result.status){
                 this.renderToolbar();
                 this.preloaderOn();
-            }
-            else {
+            } else {
                 this.renderLogOut();
             }
         })

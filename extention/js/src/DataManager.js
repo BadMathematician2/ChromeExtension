@@ -10,7 +10,7 @@ class DataManager {
 
     authToolbar() {
         let token = $('#wtg_ext_auth_token').val()
-        if (undefined !== token){
+        if (undefined !== token) {
             console.log(token)
             this.chromeStorage.setChromeStorage({session: token, status: 'autorisated'})
         }
