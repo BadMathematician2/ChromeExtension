@@ -9,17 +9,17 @@ namespace ChromeExtension;
  */
 class DomainSelectOptions
 {
-    private $columns = [
+    private array $columns = [
         'status', 'type', 'url_status', 'link_type', 'link_position', 'tech_status', 'country',
     ];
 
-    private $status = [
+    private array $status = [
         1 => 'URL_IS_NOT_IN_DB',
         2 => 'URL_IS_IN_DB',
         3 => 'URL_IS_IN_DB_BUT_SITE_IS_UNDER_MODERATION',
     ];
 
-    private $type = [
+    private array $type = [
         1 => 'CT',
         2 => 'AR',
         3 => 'FR',
@@ -31,32 +31,32 @@ class DomainSelectOptions
         9 => 'SB',
     ];
 
-    private $url_status = [
+    private array $url_status = [
         1 => '200',
         2 => '404',
     ];
 
-    private $link_type = [
+    private array $link_type = [
         1 => 'DF',
         2 => 'ND',
         3 => 'RD',
         4 => 'IL',
     ];
 
-    private $link_position = [
+    private array $link_position = [
         1 => 'Up',
         2 => 'Middle',
         3 => 'Down',
     ];
 
-    private $tech_status = [
+    private array $tech_status = [
         1 => 'rejected',
         2 => 'site does not work',
         3 => 'not thematic',
         4 => 'back link',
     ];
 
-    private $country = [
+    private array $country = [
         1 => 'EN',
         2 => 'FR',
         3 => 'ES',
@@ -70,5 +70,15 @@ class DomainSelectOptions
     public function getOption(string $option) : array
     {
         return $this->{$option};
+    }
+
+    /**
+     * @param string $option
+     * @param int $value
+     * @return string
+     */
+    public function getOptionValue(string $option, int $value) : string
+    {
+        return $this->{$option}[$value];
     }
 }

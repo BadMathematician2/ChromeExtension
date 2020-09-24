@@ -25,17 +25,17 @@ class DomainController extends Controller
     /**
      * @var Request
      */
-    private $request;
+    private Request $request;
 
     /**
      * @var DomainSelectOptions
      */
-    private $selectHelper;
+    private DomainSelectOptions $selectHelper;
 
     /**
-     * @var Model
+     * @var string
      */
-    private $managerModel = Manager::class;
+    private string $managerModel = Manager::class;
 
     /**
      * @param Model $managerModel
@@ -78,7 +78,7 @@ class DomainController extends Controller
 
             foreach ($this->selectHelper->getOption('columns') as $column) {
                 if (isset($model[$column])) {
-                    $model[$column] = $this->selectHelper->getOption($column)[$model[$column]];
+                    $model->setAttribute($column, $this->selectHelper->getOptionValue($column, $model->getAttribute($column)));
                 }
             }
 

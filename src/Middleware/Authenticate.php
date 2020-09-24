@@ -41,6 +41,10 @@ class Authenticate
 
         $result = json_decode((string)$response->body(), true);
 
+        if (null === $result) {
+            return false;
+        }
+
         return 'OK' === $result['status'];
     }
 
