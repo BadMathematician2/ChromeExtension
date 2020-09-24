@@ -3,6 +3,9 @@ class DataManager {
     constructor() {
         this.chromeStorage = new ChromeStorage()
         this.wtgToolBarContent = new WtgToolBarContent()
+        this.url = "https://test.extention/api/domain"
+
+        this.domain = window.location.href.split(/\/+/)[1];
     }
 
     authToolbar() {
@@ -26,11 +29,11 @@ class DataManager {
         this.chromeStorage.getChromeStorage('session', result => {
             if (null !== result.session) {
                 this.getData(
-                    "https://test.extention/api/domain",
+                    this.url,
                     {
-                        domain: window.location.href,
+                        domain: this.domain,
                         token: result.session,
-                        manager: 'ChromeExtension\\Models\\Manager'
+                        manager: 'App\\Models\\Manager'
                     },
                     (data) => {
                         this.wtgToolBarContent.SetContentToolbar(data)
