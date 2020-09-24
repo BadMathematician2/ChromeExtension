@@ -11,5 +11,5 @@ Route::post('authenticate', 'ExtensionController@authenticate')->name('ext-login
 
 Route::post('register', 'ExtensionController@register');
 
-Route::post('logout', 'ExtensionController@logout');
+Route::get('logout', 'ExtensionController@logout');
 

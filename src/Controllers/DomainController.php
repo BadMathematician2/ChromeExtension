@@ -4,7 +4,7 @@
 namespace ChromeExtension\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Manager;
+use App\Models\Manager;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
 use Illuminate\Database\Eloquent\Model;

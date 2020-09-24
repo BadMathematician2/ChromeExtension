@@ -34,6 +34,7 @@ class WtgToolBar {
         this.renderStyles(this.fontUrl, this.styles);
         this.renderScripts(this.scripts);
         this.renderIndex(this.urlToolbar);
+        $('body').css({paddingTop:36})
     }
 
     renderLogOut() {
@@ -45,6 +46,7 @@ class WtgToolBar {
         this.chromeStorage.getChromeStorage('status', result => {
             if("autorisated" === result.status){
                 this.renderToolbar();
+                this.preloaderOn();
             }
             else {
                 this.renderLogOut();

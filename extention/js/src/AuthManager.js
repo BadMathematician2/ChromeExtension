@@ -8,7 +8,7 @@ class AuthManager {
         });
     }
 
-    constructor(query, authUrl = "authenticate", regUrl = "logout", logOutUrl = "logout") {
+    constructor(query = null, authUrl = "authenticate", regUrl = "logout", logOutUrl = "logout") {
         const url = "https://test.extention/api/"
         this.authUrl = url + authUrl
         this.regUrl = url + regUrl
@@ -18,7 +18,7 @@ class AuthManager {
         this.query = query
 
 
-        switch (this.query.type) {
+/*        switch (this.query.type) {
             case 'auth' :
                 this.auth()
                 break;
@@ -28,13 +28,12 @@ class AuthManager {
             case 'logout' :
                 this.logOut()
                 break;
-        }
+        }*/
 
 
     }
 
-    auth()
-    {
+    auth() {
         this.formRequest(
             this.authUrl,
             {
@@ -61,8 +60,7 @@ class AuthManager {
 
     }
 
-    reg()
-    {
+    reg() {
         this.formRequest(
             this.regUrl,
             {
@@ -76,8 +74,7 @@ class AuthManager {
 
     }
 
-    logOut()
-    {
+    logOut() {
         this.formRequest(
             this.logOutUrl,
             {},
@@ -86,7 +83,8 @@ class AuthManager {
                 console.log('success logout')
                 $('#wtg-toolbar-wrap').remove()
                 this.toolbar.renderLogOut()
-            }
+            },
+                "GET"
         )
     }
 
@@ -99,8 +97,6 @@ class AuthManager {
             success: onSuccess
         });
     }
-
-
 
 }
 
