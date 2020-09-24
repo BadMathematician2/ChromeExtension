@@ -77,12 +77,12 @@ class DomainController extends Controller
             }
 
             foreach ($this->selectHelper->getOption('columns') as $column) {
-                if (isset($model[$column])) {
+                if (null !== $model->getAttribute($column)) {
                     $model->setAttribute($column, $this->selectHelper->getOptionValue($column, $model->getAttribute($column)));
                 }
             }
 
-            if (isset($model['manager_id'])) {
+            if (null !== $model->getAttribute('manager_id')) {
                 $model->setManagerModel($this->managerModel);
                 $model['manager'] = $model->getManagerInfo();
             }
