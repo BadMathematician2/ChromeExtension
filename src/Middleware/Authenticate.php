@@ -41,16 +41,16 @@ class Authenticate
 
         $result = json_decode((string)$response->body(), true);
 
-        return 200 === $result['status'];
+        return 'OK' === $result['status'];
     }
 
     /**
-     * @param int $responseCode
+     * @param int $httpStatusCode
      */
-    private function checkResponseStatus(int $responseCode)
+    private function checkResponseStatus(int $httpStatusCode)
     {
-        if (200 !== $responseCode) {
-            abort($responseCode);
+        if (200 !== $httpStatusCode) {
+            abort($httpStatusCode);
         }
     }
 
