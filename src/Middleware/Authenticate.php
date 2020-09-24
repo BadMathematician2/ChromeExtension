@@ -31,17 +31,26 @@ class Authenticate
      * @param string $token
      * @return bool
      */
-    private function checkToken(string $token)
+    private function checkToken(string $token) : bool
     {
         $response = $response = Http::withHeaders([
             'X-CSRF-TOKEN' => csrf_token(),
-        ])->get(env('AUTH_ROUTE', 'https://') . $token);
+        ])->get($this->getAuthUrl($token));
 
         $this->checkResponseStatus($response->status());
 
         $result = json_decode((string)$response->body(), true);
 
         return 'OK' === $result['status'];
+    }
+
+    /**
+     * @param string $token
+     * @return string
+     */
+    private function getAuthUrl(string $token) : string
+    {
+        return env('AUTH_ROUTE', 'https://auth.wtgspain.com/auth') . '?token=' . $token;
     }
 
     /**
