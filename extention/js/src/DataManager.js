@@ -3,7 +3,7 @@ class DataManager {
     constructor(url) {
         this.chromeStorage = new ChromeStorage()
         this.wtgToolBarContent = new WtgToolBarContent()
-        this.url = url
+        this.url = url + 'domain'
         this.domain = window.location.href.split(/\/+/)[1]
     }
 
@@ -28,11 +28,10 @@ class DataManager {
         this.chromeStorage.getChromeStorage('session', result => {
             if (null !== result.session) {
                 this.getData(
-                    this.url + 'domain',
+                    this.url,
                     {
                         domain: this.domain,
-                        token: result.session,
-                        manager: 'App\\Models\\Manager'
+                        token: result.session
                     },
                     (data) => {
                         this.wtgToolBarContent.SetContentToolbar(data)

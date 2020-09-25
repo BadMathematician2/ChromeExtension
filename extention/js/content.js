@@ -7,10 +7,9 @@ $.ajaxSetup({
 
 
 const toolBar = new WtgToolBar(),
-    eventManager = new EventManager(),
-    dataManager = new DataManager('https://test.extention/api/'),
-    chromeStorage = new ChromeStorage(),
-    authManager = new AuthManager('','https://test.extention/api/')
+    eventManager = new EventManager('https://test.local/api/'),
+    dataManager = new DataManager('https://test.local/api/'),
+    chromeStorage = new ChromeStorage()
 
 eventManager.registerListeners()
 dataManager.authToolbar()
