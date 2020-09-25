@@ -8,28 +8,28 @@ class AuthManager {
         });
     }
 
-    constructor(query = null, authUrl = "authenticate", regUrl = "logout", logOutUrl = "logout") {
-        const url = "https://test.extention/api/"
-        this.authUrl = url + authUrl
-        this.regUrl = url + regUrl
-        this.logOutUrl = url + logOutUrl
+    constructor(query = null, url = 'https://test.extention/api/') {
+        this.url = url
+        this.authUrl = url + 'authenticate'
+        this.regUrl = url + 'register'
+        this.logOutUrl = url + 'logout'
         this.chromeStorage = new ChromeStorage()
         this.toolbar = new WtgToolBar()
         this.query = query
 
-
-/*        switch (this.query.type) {
-            case 'auth' :
-                this.auth()
-                break;
-            case 'reg' :
-                this.reg()
-                break;
-            case 'logout' :
-                this.logOut()
-                break;
-        }*/
-
+        if (null !== this.query) {
+            switch (this.query.type) {
+                case 'auth' :
+                    this.auth()
+                    break;
+                case 'reg' :
+                    this.reg()
+                    break;
+                case 'logout' :
+                    this.logOut()
+                    break;
+            }
+        }
 
     }
 
@@ -42,7 +42,6 @@ class AuthManager {
             },
             (response) =>  {
                 if("error" !== response) {
-                    console.log(response)
                     this.chromeStorage.setChromeStorage({
                         session: response,
                         status: 'autorisated',
